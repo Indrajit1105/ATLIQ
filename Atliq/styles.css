@@ -1,0 +1,337 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+ 
+
+.send-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    /* background-color: #004d40; */
+    background-color: #002147;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the top */
+    box-shadow: 0px 3px 3px 0px blue;
+}
+
+.sidebar .logo img {
+    height: 50px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 3px 0px white;
+    padding: 2px;
+}
+/* Logo Section */
+.logo {
+    display: flex;
+    align-items: center; /* Vertically aligns items */
+    gap: 10px; /* Adds spacing between the image and the text */
+    text-align: left; /* Ensures the text aligns properly */
+}
+
+.logo img {
+    height: 40px; /* Adjust the image height */
+    width: 70px !important; /* Set a fixed width */
+    border-radius: 50%; /* Makes the image circular */
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+}
+
+
+.logo h6 {
+    font-size:16px;
+    font-weight: bold;
+    color: white;
+    margin: 0; /* Removes extra margin for better alignment */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1; /* Allow items to grow and fill available space */
+}
+
+.sidebar nav ul li a {
+    position: relative;
+    top:330px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    color: #a7ffeb;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 250px; /* Space for the sidebar */
+    padding: 20px;
+}
+
+/* Sections */
+section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #002147;
+}
+.intro {
+    margin-left: 0px; /* Space for the sidebar */
+    padding: 20px;
+    text-align: center;
+}
+
+/* h1 Styling */
+.intro h1 {
+    font-size: 2.5em;
+    color:#002147;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Paragraph Styling */
+.intro p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Image Styling */
+.intro .section-image {
+    display: block;
+    width: calc(100%); /* Full width minus the sidebar */
+    margin-left: 0px; /* Align with the main content area */
+    margin-top: 20px;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional for rounded corners */
+}
+/* Services Section */
+.service-items, .focus-items {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.service-item, .focus-item {
+    max-width: 300px;
+    text-align: center;
+}
+
+.service-item img, .focus-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.service-item h3, .focus-item h3 {
+    margin: 10px 0;
+    color: #002147;
+}
+
+.service-item p, .focus-item p {
+    font-size: 14px;
+    color: #555;
+    text-align:left;
+}
+
+/* Dashboard Section */
+.dashboard iframe {
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Footer */
+footer {
+    background-color:#002147;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+footer a {
+    color: #a7ffeb;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+/* Successful Bookings Section */
+.success {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.success-items {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.success-item {
+    max-width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.success-item:hover {
+    transform: translateY(-10px);
+}
+
+.success-item i {
+    font-size: 2.5em;
+    color: #002147;
+    margin-bottom: 15px;
+}
+
+.success-item h3 {
+    font-size: 1.5em;
+    color: #002147;
+    margin-bottom: 10px;
+}
+
+.success-item p {
+    font-size: 1em;
+    color: #555;
+    text-align: justify;
+}
+/* CTA Section */
+.cta {
+    padding: 40px 20px;
+    background-color: #002147;
+    color: white;
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.cta p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #a7ffeb;
+    color: #002147;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #88e4d0;
+}
+
+
+
+.chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #002147;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 24px;
+}
+
+/* Chatbot Modal */
+.chatbot-modal {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid #002147;
+}
+
+/* Modal Header */
+.chatbot-header {
+    background-color:#002147;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Modal Body */
+.chatbot-body {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+button {
+    padding: 10px;
+    background-color: #002147;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #002147;
+}
+
+/* Show Chatbot */
+.chatbot-modal.show {
+    right: 0;
+}

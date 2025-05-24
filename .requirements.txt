@@ -1,0 +1,8 @@
+ fastapi
+  pydantic 
+  pandas 
+  llama-index 
+  openai 
+  uvicorn
+python-dotenv
+llama-index-experimental

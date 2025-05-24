@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atliq Group Hotels – Our Locations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #002147;
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #002147;
+      padding: 10px 40px;
+    }
+    nav .search-box {
+      flex-grow: 1;
+      margin-left: 20px;
+    }
+    nav input {
+      width: 100%;
+      padding: 8px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .card-content h2 {
+      color: #b30000;
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+    }
+    .card-content p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+    }
+    #chatbot-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #002147;
+  color: white;
+  font-size: 24px;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Atliq Group Hotels – Our Locations</h1>
+  </header>
+  <nav>
+    <div class="search-box">
+      <input type="text" placeholder="Search by city or hotel name..." onkeyup="searchCards(this.value)" />
+    </div>
+  </nav>
+  <div class="grid" id="hotelGrid">
+    <div class="card">
+      <img src="https://www.americanexpress.com/en-us/travel/discover/photos/20425/23537/1600/Grand%20Hyatt%20Goa%5FAerial%20overview%5FOutdoor%20swimming%20pool.jpg?ch=560" alt="Atliq Bay Goa" />
+      <div class="card-content">
+        <h2>Atliq Bay – Goa</h2>
+        <p>Opp. St. Anthony's Chapel, Gauravaddo, Calangute, Goa 403516</p>
+      </div>
+      <iframe src="https://www.google.com/maps?q=Opp.+St.+Anthony's+Chapel,+Gauravaddo,+Calangute,+Goa&output=embed"></iframe>
+    </div>
+     <div class="card">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/472036509.jpg?k=ca519c1b538fb5a354795ca88348ad866bccca2859a8abec4e8560d167b0b235&o=" alt="Atliq Seasons Mumbai" />
+      <div class="card-content">
+        <h2>Atliq Seasons – Mumbai</h2>
+        <p>Opp. Oberoi Mall, Goregaon East, Mumbai, Maharashtra 400063</p>
+      </div>
+      <iframe src="https://www.google.com/maps?q=Oberoi+Mall+Goregaon+East+Mumbai&output=embed"></iframe>
+    </div>
+    <div class="card">
+      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/c2/9c/80/the-claridges-new-delhi.jpg?w=900&h=-1&s=1" alt="Atliq Palace Delhi" />
+      <div class="card-content">
+        <h2>Atliq Palace – Delhi</h2>
+        <p>Connaught Place, New Delhi, Delhi 110001</p>
+      </div>
+      <iframe src="https://www.google.com/maps?q=Connaught+Place,+New+Delhi&output=embed"></iframe>
+    </div>
+    <div class="card">
+      <img src="https://fruitbasket.limepack.com/blog/wp-content/uploads/2024/04/stunning-view-of-hotel-emirates.jpg" alt="Atliq Grands Hyderabad" />
+      <div class="card-content">
+        <h2>Atliq Grands – Hyderabad</h2>
+        <p>Near Hitech City, Hyderabad, Telangana 500081</p>
+      </div>
+      <iframe src="https://www.google.com/maps?q=Hitech+City+Hyderabad&output=embed"></iframe>
+    </div>
+    <div class="card">
+      <img src="https://y.cdrst.com/foto/hotel-sf/12737ca4/granderesp/foto-hotel-127371fa.jpg" alt="Atliq City Bangalore" />
+      <div class="card-content">
+        <h2>Atliq City – Bangalore</h2>
+        <p>Indiranagar, Bangalore, Karnataka 560038</p>
+      </div>
+      <iframe src="https://www.google.com/maps?q=Indiranagar+Bangalore&output=embed"></iframe>
+    </div>
+    <div class="card">
+      <img src="https://content3.jdmagicbox.com/v2/comp/mumbai/k1/022pxx22.xx22.210706090356.d8k1/catalogue/radisson-blu-mumbai-international-airport-andheri-east-mumbai-hotels-0e9cfdvya2.jpg" alt="Atliq Blu Mumbai" />
+      <div class="card-content">
+        <h2>Atliq Blu – Mumbai</h2>
+        <p>Marine Drive, Mumbai, Maharashtra 400002</p>
+      </div>
+      <iframe src="https://www.google.com/maps?q=Marine+Drive+Mumbai&output=embed"></iframe>
+    </div>
+  </div>
+  <script>
+    function searchCards(query) {
+      const cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query.toLowerCase()) ? "block" : "none";
+      });
+    }
+  </script>
+  <!-- Floating Chat Button -->
+<div id="chatbot-button" onclick="toggleChatbot()">
+  💬
+</div>
+<!-- Chat Modal -->
+<div id="chatbot-modal" style="display:none; position:fixed; bottom:90px; right:25px; width:300px; background:white; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:999;">
+  <div style="background:#002147; color:white; padding:10px; border-top-left-radius:10px; border-top-right-radius:10px;">
+    Travel Assistant <span onclick="toggleChatbot()" style="float:right; cursor:pointer;">❌</span>
+  </div>
+  <div id="chatbox" style="padding:10px; max-height:250px; overflow-y:auto;"></div>
+  <div style="padding:10px; display:flex;">
+    <input type="text" id="userInput" placeholder="Ask a question..." style="flex:1; padding:5px;" onkeydown="if(event.key==='Enter')sendMessage()" />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+<script>
+  function toggleChatbot() {
+    const modal = document.getElementById("chatbot-modal");
+    modal.style.display = modal.style.display === "none" ? "block" : "none";
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const query = input.value.trim();
+    if (!query) return;
+
+    const chatbox = document.getElementById("chatbox");
+    chatbox.innerHTML += `<div><strong>You:</strong> ${query}</div>`;
+    input.value = "";
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/query/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query })
+      });
+      const data = await res.json();
+
+      chatbox.innerHTML += `<div><strong>Assistant:</strong> ${data.response}</div>`;
+      chatbox.scrollTop = chatbox.scrollHeight;
+    } catch (err) {
+      chatbox.innerHTML += `<div style="color:red;"><strong>Error:</strong> Failed to get response</div>`;
+    }
+  }
+</script>
+
+
+</body>
+</html>
