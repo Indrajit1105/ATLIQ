@@ -3,12 +3,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
 }
- 
 
-.send-btn:hover {
-    background-color: #0056b3;
+/* Body Styling */
+body {
+    background: linear-gradient(135deg, #f4f4f4, #e0e7ff); /* Subtle gradient background */
 }
 
 /* Sidebar Styles */
@@ -16,45 +16,43 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
+    width: 260px;
     height: 100%;
-    /* background-color: #004d40; */
-    background-color: #002147;
+    background: linear-gradient(180deg, #002147, #004080); /* Gradient for sidebar */
     color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align items to the top */
-    box-shadow: 0px 3px 3px 0px blue;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
 }
 
 .sidebar .logo img {
     height: 50px;
-    margin-bottom: 20px;
-    box-shadow: 0px 0px 3px 0px white;
-    padding: 2px;
-}
-/* Logo Section */
-.logo {
-    display: flex;
-    align-items: center; /* Vertically aligns items */
-    gap: 10px; /* Adds spacing between the image and the text */
-    text-align: left; /* Ensures the text aligns properly */
+    width: 50px;
+    border-radius: 50%;
+    border: 2px solid #a7ffeb;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
 }
 
-.logo img {
-    height: 40px; /* Adjust the image height */
-    width: 70px !important; /* Set a fixed width */
-    border-radius: 50%; /* Makes the image circular */
-    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+.sidebar .logo img:hover {
+    transform: scale(1.1);
 }
 
-
-.logo h6 {
-    font-size:16px;
-    font-weight: bold;
-    color: white;
-    margin: 0; /* Removes extra margin for better alignment */
+.sidebar .logo h6 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #a7ffeb;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar nav ul {
@@ -62,276 +60,374 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    flex-grow: 1; /* Allow items to grow and fill available space */
+}
+
+.sidebar nav ul li {
+    position: relative;
+    top: 0; /* Removed top positioning to align naturally */
 }
 
 .sidebar nav ul li a {
-    position: relative;
-    top:330px;
     text-decoration: none;
     color: white;
-    font-weight: bold;
-    transition: color 0.3s;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
 .sidebar nav ul li a:hover {
-    color: #a7ffeb;
+    background-color: #a7ffeb;
+    color: #002147;
+    transform: translateX(5px);
 }
 
 /* Main Content Styles */
 .main-content {
-    margin-left: 250px; /* Space for the sidebar */
-    padding: 20px;
+    margin-left: 260px;
+    padding: 30px;
+    background: #ffffff;
+    min-height: 100vh;
+    border-radius: 15px 0 0 15px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Sections */
 section {
-    padding: 40px 20px;
+    padding: 50px 30px;
     text-align: center;
+    border-bottom: 1px solid #e0e7ff;
 }
 
 h2 {
-    margin-bottom: 20px;
+    font-size: 2.2rem;
     color: #002147;
-}
-.intro {
-    margin-left: 0px; /* Space for the sidebar */
-    padding: 20px;
-    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
 }
 
-/* h1 Styling */
+h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background: #a7ffeb;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* Intro Section */
 .intro h1 {
-    font-size: 2.5em;
-    color:#002147;
+    font-size: 3rem;
+    color: #002147;
     margin-bottom: 20px;
-    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Paragraph Styling */
 .intro p {
-    font-size: 1.2em;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 20px;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto 20px;
     text-align: justify;
 }
 
-/* Image Styling */
-.intro .section-image {
-    display: block;
-    width: calc(100%); /* Full width minus the sidebar */
-    margin-left: 0px; /* Align with the main content area */
-    margin-top: 20px;
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Optional for rounded corners */
-}
 /* Services Section */
 .service-items, .focus-items {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    padding: 20px 0;
 }
 
 .service-item, .focus-item {
-    max-width: 300px;
-    text-align: center;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.service-item img, .focus-item img {
+.service-item:hover, .focus-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-item img {
     width: 100%;
-    height: auto;
+    height: 180px;
+    object-fit: cover;
     border-radius: 10px;
+    margin-bottom: 15px;
 }
 
 .service-item h3, .focus-item h3 {
-    margin: 10px 0;
+    font-size: 1.5rem;
     color: #002147;
+    margin-bottom: 10px;
 }
 
 .service-item p, .focus-item p {
-    font-size: 14px;
+    font-size: 0.95rem;
     color: #555;
-    text-align:left;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.availability {
+    font-size: 0.85rem;
+    color: #a7ffeb;
+    background: #a7ffeb;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
 }
 
 /* Dashboard Section */
 .dashboard iframe {
     border: none;
-    border-radius: 10px;
-    margin-top: 20px;
+    border-radius: 15px;
+    margin-top: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer */
-footer {
-    background-color:#002147;
-    color: white;
-    text-align: center;
-    padding: 10px 20px;
-}
-
-footer a {
-    color: #a7ffeb;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-/* Successful Bookings Section */
+/* Success Stories Section */
 .success {
-    padding: 40px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
-}
-
-.success-items {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    background: linear-gradient(135deg, #f9f9f9, #e0e7ff);
 }
 
 .success-item {
-    max-width: 300px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: transform 0.3s ease;
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .success-item:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .success-item i {
-    font-size: 2.5em;
+    font-size: 2.8rem;
     color: #002147;
     margin-bottom: 15px;
+    transition: color 0.3s ease;
+}
+
+.success-item:hover i {
+    color: #a7ffeb;
 }
 
 .success-item h3 {
-    font-size: 1.5em;
+    font-size: 1.6rem;
     color: #002147;
     margin-bottom: 10px;
 }
 
 .success-item p {
-    font-size: 1em;
+    font-size: 1rem;
     color: #555;
-    text-align: justify;
-}
-/* CTA Section */
-.cta {
-    padding: 40px 20px;
-    background-color: #002147;
-    color: white;
     text-align: center;
 }
 
+/* CTA Section */
+.cta {
+    background: linear-gradient(135deg, #002147, #004080);
+    color: white;
+    border-radius: 15px;
+    padding: 50px 30px;
+}
+
 .cta h2 {
-    font-size: 2em;
-    margin-bottom: 10px;
+    color: white;
 }
 
 .cta p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
+    font-size: 1.3rem;
+    margin-bottom: 25px;
 }
 
 .cta-button {
     display: inline-block;
-    background-color: #a7ffeb;
+    background: #a7ffeb;
     color: #002147;
-    padding: 10px 20px;
-    font-weight: bold;
-    border-radius: 5px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .cta-button:hover {
     background-color: #88e4d0;
+    transform: scale(1.05);
 }
 
-
-
+/* Chatbot Styles */
 .chatbot-icon {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #002147;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #002147, #004080);
     color: white;
-    padding: 15px;
+    padding: 18px;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 24px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-size: 28px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Chatbot Modal */
+.chatbot-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
 .chatbot-modal {
     position: fixed;
     top: 0;
-    right: -350px;
-    width: 350px;
+    right: -400px;
+    width: 400px;
     height: 100%;
-    background-color: white;
-    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    border-left: 3px solid #002147;
+    border-left: 4px solid #a7ffeb;
 }
 
-/* Modal Header */
+.chatbot-modal.show {
+    right: 0;
+}
+
 .chatbot-header {
-    background-color:#002147;
+    background: linear-gradient(135deg, #002147, #004080);
     color: white;
-    padding: 15px;
-    text-align: center;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top-left-radius: 10px;
+}
+
+.chatbot-header h3 {
+    font-size: 1.4rem;
+    margin: 0;
 }
 
 .close-btn {
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-/* Modal Body */
+.close-btn:hover {
+    color: #a7ffeb;
+}
+
 .chatbot-body {
-    padding: 15px;
+    padding: 20px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    background: #f9f9f9;
 }
 
 textarea {
     width: 100%;
-    height: 100px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    height: 120px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     resize: none;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #a7ffeb;
+    outline: none;
 }
 
 button {
-    padding: 10px;
-    background-color: #002147;
+    padding: 12px;
+    background: #002147;
     color: white;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-    background-color: #002147;
+    background: #004080;
+    transform: scale(1.02);
 }
 
-/* Show Chatbot */
-.chatbot-modal.show {
-    right: 0;
+#chat-response {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #002147, #004080);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-top: 4px solid #a7ffeb;
+}
+
+footer a {
+    color: #a7ffeb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #88e4d0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        box-shadow: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        border-radius: 0;
+    }
+
+    .service-items, .focus-items, .success-items {
+        grid-template-columns: 1fr;
+    }
+
+    .chatbot-modal {
+        width: 100%;
+        right: -100%;
+    }
+
+    .chatbot-modal.show {
+        right: 0;
+    }
 }
