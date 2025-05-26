@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atliq Group Hotels – Book Your Stay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f4f4f4, #e0e7ff);
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #002147;
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #004080;
+      color: #a7ffeb;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 250px;
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #002147, #004080);
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      color: #a7ffeb;
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Room Categories Section */
+    .room-categories {
+      margin: 40px 0;
+    }
+
+    .room-category {
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, #ffffff, #f9f9f9);
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: slideIn 1s ease-out;
+    }
+
+    .room-category h2 {
+      color: #002147;
+      font-size: 2rem;
+      text-align: center;
+      padding: 20px 0;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .room-category h2::after {
+      content: '';
+      width: 80px;
+      height: 5px;
+      background: linear-gradient(90deg, #a7ffeb, #004080);
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 3px;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    .carousel-images {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 0.7s ease-in-out;
+    }
+
+    .carousel-images img {
+      width: 33.33%;
+      height: 400px;
+      object-fit: cover;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .carousel-images img:hover {
+      transform: scale(1.02);
+    }
+
+    .carousel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.05);
+      transition: background 0.3s ease;
+      pointer-events: none;
+    }
+
+    .carousel:hover::before {
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 33, 71, 0.8);
+      color: #a7ffeb;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      font-size: 1.6rem;
+      transition: background 0.3s ease;
+      border-radius: 50%;
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(0, 64, 128, 1);
+    }
+
+    .carousel-arrow.left {
+      left: 20px;
+    }
+
+    .carousel-arrow.right {
+      right: 20px;
+    }
+
+    .room-info {
+      padding: 25px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .room-info p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+
+    /* Booking Form */
+    .booking-form-container {
+      margin: 40px 20px;
+      padding: 40px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .booking-form-container:hover {
+      transform: translateY(-5px);
+    }
+
+    .booking-form-container h2 {
+      color: #002147;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .booking-form-container h2::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: #a7ffeb;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .booking-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: white;
+      padding: 0 5px;
+      font-size: 0.9rem;
+      color: #002147;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e7ff;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #f9f9f9;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #a7ffeb;
+      box-shadow: 0 0 8px rgba(167, 255, 235, 0.3);
+      outline: none;
+    }
+
+    .booking-form button {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #002147, #004080);
+      color: #a7ffeb;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .booking-form button i {
+      margin-right: 10px;
+    }
+
+    .booking-form button:hover {
+      background: linear-gradient(135deg, #004080, #0064b7);
+      transform: scale(1.02);
+    }
+
+    #booking-response {
+      grid-column: 1 / -1;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1rem;
+      color: #002147;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #booking-response.show {
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #002147, #004080);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      border-top: 4px solid #a7ffeb;
+      margin-top: 40px;
+    }
+
+    footer p {
+      font-size: 1rem;
+      margin: 5px 0;
+    }
+
+    footer a {
+      color: #a7ffeb;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #88e4d0;
+    }
+
+    footer a i {
+      margin-left: 5px;
+      font-size: 1.2rem;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+
+      .main-content {
+        margin-left: 200px;
+      }
+
+      header {
+        padding: 15px 20px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .room-category {
+        margin: 20px;
+        padding: 0;
+      }
+
+      .carousel {
+        height: 300px;
+      }
+
+      .carousel-images img {
+        height: 300px;
+      }
+
+      .booking-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .carousel {
+        height: 200px;
+      }
+
+      .carousel-images img {
+        height: 200px;
+      }
+
+      .room-info p {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="locations.html"><i class="fas fa-map-marker-alt"></i> Locations</a>
+    <a href="booking.html" class="active"><i class="fas fa-bed"></i> Book Now</a>
+    <a href="reviews.html"><i class="fas fa-star"></i> Reviews</a>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header>
+      <h1>Book Your Stay with Atliq Group Hotels</h1>
+    </header>
+
+    <!-- Room Categories Section -->
+    <section class="room-categories">
+      <!-- Premium Room -->
+      <div class="room-category">
+        <h2>Premium Room</h2>
+        <div class="carousel" data-carousel>
+          <div class="carousel-images">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1200" alt="Premium Room 1" />
+            <img src="https://images.unsplash.com/photo-1631049552050-9cbd83a3b5b6?w=1200" alt="Premium Room 2" />
+            <img src="https://images.unsplash.com/photo-1621293954908-907159247fc8?w=1200" alt="Premium Room 3" />
+          </div>
+          <button class="carousel-arrow left" onclick="moveCarousel(this, -1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-arrow right" onclick="moveCarousel(this, 1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="room-info">
+          <p>Experience luxury with spacious interiors, modern amenities, and stunning views in our Premium Rooms, designed for ultimate comfort and relaxation.</p>
+        </div>
+      </div>
+
+      <!-- Elite Room -->
+      <div class="room-category">
+        <h2>Elite Room</h2>
+        <div class="carousel" data-carousel>
+          <div class="carousel-images">
+            <img src="https://images.unsplash.com/photo-1591081658716-c111fbd84e2c?w=1200" alt="Elite Room 1" />
+            <img src="https://images.unsplash.com/photo-1595526051245-45087568f27f?w=1200" alt="Elite Room 2" />
+            <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200" alt="Elite Room 3" />
+          </div>
+          <button class="carousel-arrow left" onclick="moveCarousel(this, -1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-arrow right" onclick="moveCarousel(this, 1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="room-info">
+          <p>Perfect for business travelers, our Elite Rooms offer comfort, high-end facilities, and a sleek design to ensure a productive and enjoyable stay.</p>
+        </div>
+      </div>
+
+      <!-- Presidential Suite -->
+      <div class="room-category">
+        <h2>Presidential Suite</h2>
+        <div class="carousel" data-carousel>
+          <div class="carousel-images">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200" alt="Presidential Suite 1" />
+            <img src="https://images.unsplash.com/photo-1618221710640-bff720503d33?w=1200" alt="Presidential Suite 2" />
+            <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=1200" alt="Presidential Suite 3" />
+          </div>
+          <button class="carousel-arrow left" onclick="moveCarousel(this, -1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-arrow right" onclick="moveCarousel(this, 1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="room-info">
+          <p>Indulge in opulence with our Presidential Suites, featuring expansive spaces, premium furnishings, and personalized services for an unforgettable experience.</p>
+        </div>
+      </div>
+
+      <!-- Standard Room -->
+      <div class="room-category">
+        <h2>Standard Room</h2>
+        <div class="carousel" data-carousel>
+          <div class="carousel-images">
+            <img src="https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=1200" alt="Standard Room 1" />
+            <img src="https://images.unsplash.com/photo-1578683015141-0d0e2ed15769?w=1200" alt="Standard Room 2" />
+            <img src="https://images.unsplash.com/photo-1445991842772-097fea258e7b?w=1200" alt="Standard Room 3" />
+          </div>
+          <button class="carousel-arrow left" onclick="moveCarousel(this, -1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-arrow right" onclick="moveCarousel(this, 1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="room-info">
+          <p>Cozy and affordable, our Standard Rooms are ideal for budget-conscious travelers seeking comfort and convenience without compromising on quality.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Form -->
+    <div class="booking-form-container">
+      <h2>Booking Form</h2>
+      <form id="booking-form" class="booking-form">
+        <div class="form-group">
+          <label for="hotel-name">Hotel Name</label>
+          <input type="text" id="hotel-name" name="hotel_name" readonly>
+        </div>
+        <div class="form-group">
+          <label for="customer-name">Customer Name</label>
+          <input type="text" id="customer-name" name="customer_name" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-name">Contact Name</label>
+          <input type="text" id="contact-name" name="contact_name" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Contact Email</label>
+          <input type="email" id="contact-email" name="contact_email" required>
+        </div>
+        <div class="form-group">
+          <label for="check-in-date">Check-in Date</label>
+          <input type="date" id="check-in-date" name="check_in_date" required>
+        </div>
+        <div class="form-group">
+          <label for="check-out-date">Check-out Date</label>
+          <input type="date" id="check-out-date" name="check_out_date" required>
+        </div>
+        <div class="form-group">
+          <label for="time-in">Time In</label>
+          <input type="time" id="time-in" name="time_in" required>
+        </div>
+        <div class="form-group">
+          <label for="time-out">Time Out</label>
+          <input type="time" id="time-out" name="time_out" required>
+        </div>
+        <div class="form-group">
+          <label for="num-guests">Number of Guests</label>
+          <input type="number" id="num-guests" name="num_guests" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="guest-type">Guest Type</label>
+          <select id="guest-type" name="guest_type" required>
+            <option value="adult">Adult</option>
+            <option value="child">Child</option>
+            <option value="mixed">Mixed</option>
+          </select>
+        </div>
+        <button type="submit"><i class="fas fa-bed"></i> Submit Booking</button>
+        <div id="booking-response"></div>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 Atliq Hospitality Services. All rights reserved.</p>
+      <p>Follow us on:
+        <a href="https://twitter.com" target="_blank">Twitter <i class="fab fa-twitter"></i></a> |
+        <a href="https://facebook.com" target="_blank">Facebook <i class="fab fa-facebook"></i></a> |
+        <a href="https://linkedin.com" target="_blank">LinkedIn <i class="fab fa-linkedin"></i></a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Carousel Functionality
+    function moveCarousel(button, direction) {
+      const carousel = button.closest('.carousel');
+      const imagesContainer = carousel.querySelector('.carousel-images');
+      const images = imagesContainer.querySelectorAll('img');
+      let currentIndex = parseInt(carousel.dataset.index || 0);
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      imagesContainer.style.transform = `translateX(-${currentIndex * 100 / images.length}%)`;
+      carousel.dataset.index = currentIndex;
+    }
+
+    // Auto-slide Carousels
+    document.querySelectorAll('.carousel').forEach(carousel => {
+      setInterval(() => {
+        const rightButton = carousel.querySelector('.carousel-arrow.right');
+        if (rightButton) moveCarousel(rightButton, 1);
+      }, 5000);
+    });
+
+    // Booking Form Submission
+    document.addEventListener('DOMContentLoaded', () => {
+      // Pre-fill hotel name
+      const urlParams = new URLSearchParams(window.location.search);
+      const hotelName = urlParams.get('hotel') || '';
+      document.getElementById('hotel-name').value = hotelName;
+
+      // Form submission
+      const form = document.getElementById('booking-form');
+      const responseDiv = document.getElementById('booking-response');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = {
+          hotel_name: formData.get('hotel_name'),
+          customer_name: formData.get('customer_name'),
+          contact_name: formData.get('contact_name'),
+          contact_email: formData.get('contact_email'),
+          check_in_date: formData.get('check_in_date'),
+          check_out_date: formData.get('check_out_date'),
+          time_in: formData.get('time_in'),
+          time_out: formData.get('time_out'),
+          num_guests: parseInt(formData.get('num_guests')),
+          guest_type: formData.get('guest_type')
+        };
+
+        // Client-side validation
+        const today = new Date().toISOString().split('T')[0];
+        if (data.check_in_date < today) {
+          responseDiv.textContent = 'Check-in date cannot be in the past.';
+          responseDiv.classList.add('show');
+          return;
+        }
+        if (data.check_out_date <= data.check_in_date) {
+          responseDiv.textContent = 'Check-out date must be after check-in date.';
+          responseDiv.classList.add('show');
+          return;
+        }
+
+        try {
+          const response = await fetch('http://127.0.0.1:8000/bookings/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          responseDiv.textContent = result.message;
+          responseDiv.classList.add('show');
+          form.reset();
+          document.getElementById('hotel-name').value = hotelName;
+        } catch (error) {
+          console.error('Error submitting booking:', error);
+          responseDiv.textContent = 'Error submitting booking. Please try again.';
+          responseDiv.classList.add('show');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

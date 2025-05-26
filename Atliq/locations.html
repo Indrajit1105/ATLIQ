@@ -9,157 +9,493 @@
   <style>
     * {
       box-sizing: border-box;
-    }
-    body {
       margin: 0;
+      padding: 0;
       font-family: 'Roboto', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
     }
+
+    body {
+      background: linear-gradient(135deg, #f4f4f4, #e0e7ff);
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #002147;
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #004080;
+      color: #a7ffeb;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 250px;
+      flex-grow: 1;
+    }
+
     header {
-      background-color: #002147;
+      background: linear-gradient(135deg, #002147, #004080);
       color: white;
       padding: 20px 40px;
       text-align: center;
-      position: relative; /* Added to position the home icon */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
+
     header h1 {
       margin: 0;
-      font-size: 2.5rem;
-      display: inline-block; /* Ensure h1 doesn't take full width */
+      color: #a7ffeb;
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
-    header .home-icon {
-      position: absolute;
-      right: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: white;
-      font-size: 1.8rem;
-      text-decoration: none;
-    }
-    header .home-icon:hover {
-      color: #b30000; /* Optional: hover effect */
-    }
+
     nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      background-color: #002147;
-      padding: 10px 40px;
+      background: #002147;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+
     nav .search-box {
       flex-grow: 1;
-      margin-left: 20px;
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
     }
+
     nav input {
       width: 100%;
-      padding: 8px;
+      padding: 10px 10px 10px 40px;
       font-size: 1rem;
-      border: none;
-      border-radius: 5px;
+      border: 2px solid #e0e7ff;
+      border-radius: 8px;
+      background: #f9f9f9;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
+
+    nav input:focus {
+      border-color: #a7ffeb;
+      box-shadow: 0 0 8px rgba(167, 255, 235, 0.3);
+      outline: none;
+    }
+
+    nav .search-box::before {
+      content: '\f002';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #002147;
+      font-size: 1.2rem;
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
       padding: 40px;
       max-width: 1200px;
       margin: auto;
     }
+
     .card {
-      background-color: white;
+      background: white;
       border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: #a7ffeb;
+      transition: width 0.3s ease;
+    }
+
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
+
+    .card:hover::before {
+      width: 8px;
+    }
+
     .card img {
       width: 100%;
       height: 200px;
       object-fit: cover;
+      border-radius: 10px 10px 0 0;
+      transition: transform 0.3s ease;
     }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
     .card-content {
-      padding: 15px;
+      padding: 20px;
     }
+
     .card-content h2 {
-      color: #b30000;
-      margin: 0 0 10px;
-      font-size: 1.3rem;
+      color: #002147;
+      margin: 0 0 12px;
+      font-size: 1.5rem;
+      font-weight: 700;
     }
+
     .card-content p {
       font-size: 0.95rem;
-      line-height: 1.4;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 10px;
     }
+
+    .book-button {
+      display: block;
+      background: linear-gradient(135deg, #002147, #004080);
+      color: #a7ffeb;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      margin: 10px 20px 20px;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .book-button i {
+      margin-right: 8px;
+    }
+
+    .book-button:hover {
+      background: linear-gradient(135deg, #004080, #0064b7);
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
     iframe {
       width: 100%;
       height: 200px;
       border: none;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      background: linear-gradient(135deg, #002147, #004080);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      border-top: 4px solid #a7ffeb;
+      margin-top: 40px;
+    }
+
+    footer p {
+      font-size: 1rem;
+      margin: 5px 0;
+    }
+
+    footer a {
+      color: #a7ffeb;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #88e4d0;
+    }
+
+    footer a i {
+      margin-left: 5px;
+      font-size: 1.2rem;
+    }
+
+    #chatbot-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #002147, #004080);
+      color: white;
+      padding: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      font-size: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #chatbot-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #chatbot-modal {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      width: 300px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    #chatbot-modal .chat-header {
+      background: linear-gradient(135deg, #002147, #004080);
+      color: white;
+      padding: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #chatbot-modal .chat-header span {
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    #chatbox {
+      padding: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+      background: #f9f9f9;
+    }
+
+    #chatbot-modal input {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #e0e7ff;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-right: 10px;
+      background: #f9f9f9;
+      transition: border-color 0.3s ease;
+    }
+
+    #chatbot-modal input:focus {
+      border-color: #a7ffeb;
+      outline: none;
+    }
+
+    #chatbot-modal button {
+      padding: 10px 20px;
+      background: #002147;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    #chatbot-modal button:hover {
+      background: #004080;
+      transform: scale(1.02);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+
+      .main-content {
+        margin-left: 200px;
+      }
+
+      header {
+        padding: 15px 20px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      nav {
+        padding: 10px 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+      }
+
+      .card img, iframe {
+        height: 180px;
+      }
+
+      footer {
+        padding: 15px;
+      }
+
+      #chatbot-modal {
+        width: 90%;
+        right: 5%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .grid {
+        padding: 15px;
+      }
+
+      .card img, iframe {
+        height: 150px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Atliq Group Hotels – Our Locations</h1>
-    <a href="index.html" class="home-icon"><i class="fas fa-home"></i></a>
-  </header>
-  <nav>
-    <div class="search-box">
-      <input type="text" placeholder="Search by city or hotel name..." onkeyup="searchCards(this.value)" />
-    </div>
-  </nav>
-  <div class="grid" id="hotelGrid">
-    <div class="card">
-      <img src="https://www.americanexpress.com/en-us/travel/discover/photos/20425/23537/1600/Grand%20Hyatt%20Goa%5FAerial%20overview%5FOutdoor%20swimming%20pool.jpg?ch=560" alt="Atliq Bay Goa" />
-      <div class="card-content">
-        <h2>Atliq Bay – Goa</h2>
-        <p>Opp. St. Anthony's Chapel, Gauravaddo, Calangute, Goa 403516</p>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="locations.html" class="active"><i class="fas fa-map-marker-alt"></i> Locations</a>
+    <a href="reviews.html"><i class="fas fa-star"></i> Reviews</a>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header>
+      <h1>Atliq Group Hotels – Our Locations</h1>
+    </header>
+    <nav>
+      <div class="search-box">
+        <input type="text" placeholder="Search by city or hotel name..." onkeyup="searchCards(this.value)" />
       </div>
-      <iframe src="https://www.google.com/maps?q=Opp.+St.+Anthony's+Chapel,+Gauravaddo,+Calangute,+Goa&output=embed"></iframe>
-    </div>
-     <div class="card">
-      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/472036509.jpg?k=ca519c1b538fb5a354795ca88348ad866bccca2859a8abec4e8560d167b0b235&o=" alt="Atliq Seasons Mumbai" />
-      <div class="card-content">
-        <h2>Atliq Seasons – Mumbai</h2>
-        <p>Opp. Oberoi Mall, Goregaon East, Mumbai, Maharashtra 400063</p>
+    </nav>
+    <div class="grid" id="hotelGrid">
+      <div class="card">
+        <img src="https://www.americanexpress.com/en-us/travel/discover/photos/20425/23537/1600/Grand%20Hyatt%20Goa%5FAerial%20overview%5FOutdoor%20swimming%20pool.jpg?ch=560" alt="Atliq Bay Goa" />
+        <div class="card-content">
+          <h2>Atliq Bay – Goa</h2>
+          <p>Opp. St. Anthony's Chapel, Gauravaddo, Calangute, Goa 403516</p>
+        </div>
+        <a href="booking.html?hotel=Atliq+Bay+Goa" class="book-button"><i class="fas fa-bed"></i> Book Your Hotel</a>
+        <iframe src="https://www.google.com/maps?q=Opp.+St.+Anthony's+Chapel,+Gauravaddo,+Calangute,+Goa&output=embed"></iframe>
       </div>
-      <iframe src="https://www.google.com/maps?q=Oberoi+Mall+Goregaon+East+Mumbai&output=embed"></iframe>
-    </div>
-    <div class="card">
-      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/c2/9c/80/the-claridges-new-delhi.jpg?w=900&h=-1&s=1" alt="Atliq Palace Delhi" />
-      <div class="card-content">
-        <h2>Atliq Palace – Delhi</h2>
-        <p>Connaught Place, New Delhi, Delhi 110001</p>
+      <div class="card">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/472036509.jpg?k=ca519c1b538fb5a354795ca88348ad866bccca2859a8abec4e8560d167b0b235&o=" alt="Atliq Seasons Mumbai" />
+        <div class="card-content">
+          <h2>Atliq Seasons – Mumbai</h2>
+          <p>Opp. Oberoi Mall, Goregaon East, Mumbai, Maharashtra 400063</p>
+        </div>
+        <a href="booking.html?hotel=Atliq+Seasons+Mumbai" class="book-button"><i class="fas fa-bed"></i> Book Your Hotel</a>
+        <iframe src="https://www.google.com/maps?q=Oberoi+Mall+Goregaon+East+Mumbai&output=embed"></iframe>
       </div>
-      <iframe src="https://www.google.com/maps?q=Connaught+Place,+New+Delhi&output=embed"></iframe>
-    </div>
-    <div class="card">
-      <img src="https://fruitbasket.limepack.com/blog/wp-content/uploads/2024/04/stunning-view-of-hotel-emirates.jpg" alt="Atliq Grands Hyderabad" />
-      <div class="card-content">
-        <h2>Atliq Grands – Hyderabad</h2>
-        <p>Near Hitech City, Hyderabad, Telangana 500081</p>
+      <div class="card">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/c2/9c/80/the-claridges-new-delhi.jpg?w=900&h=-1&s=1" alt="Atliq Palace Delhi" />
+        <div class="card-content">
+          <h2>Atliq Palace – Delhi</h2>
+          <p>Connaught Place, New Delhi, Delhi 110001</p>
+        </div>
+        <a href="booking.html?hotel=Atliq+Palace+Delhi" class="book-button"><i class="fas fa-bed"></i> Book Your Hotel</a>
+        <iframe src="https://www.google.com/maps?q=Connaught+Place,+New+Delhi&output=embed"></iframe>
       </div>
-      <iframe src="https://www.google.com/maps?q=Hitech+City+Hyderabad&output=embed"></iframe>
-    </div>
-    <div class="card">
-      <img src="https://y.cdrst.com/foto/hotel-sf/12737ca4/granderesp/foto-hotel-127371fa.jpg" alt="Atliq City Bangalore" />
-      <div class="card-content">
-        <h2>Atliq City – Bangalore</h2>
-        <p>Indiranagar, Bangalore, Karnataka 560038</p>
+      <div class="card">
+        <img src="https://fruitbasket.limepack.com/blog/wp-content/uploads/2024/04/stunning-view-of-hotel-emirates.jpg" alt="Atliq Grands Hyderabad" />
+        <div class="card-content">
+          <h2>Atliq Grands – Hyderabad</h2>
+          <p>Near Hitech City, Hyderabad, Telangana 500081</p>
+        </div>
+        <a href="booking.html?hotel=Atliq+Grands+Hyderabad" class="book-button"><i class="fas fa-bed"></i> Book Your Hotel</a>
+        <iframe src="https://www.google.com/maps?q=Hitech+City+Hyderabad&output=embed"></iframe>
       </div>
-      <iframe src="https://www.google.com/maps?q=Indiranagar+Bangalore&output=embed"></iframe>
-    </div>
-    <div class="card">
-      <img src="https://content3.jdmagicbox.com/v2/comp/mumbai/k1/022pxx22.xx22.210706090356.d8k1/catalogue/radisson-blu-mumbai-international-airport-andheri-east-mumbai-hotels-0e9cfdvya2.jpg" alt="Atliq Blu Mumbai" />
-      <div class="card-content">
-        <h2>Atliq Blu – Mumbai</h2>
-        <p>Marine Drive, Mumbai, Maharashtra 400002</p>
+      <div class="card">
+        <img src="https://y.cdrst.com/foto/hotel-sf/12737ca4/granderesp/foto-hotel-127371fa.jpg" alt="Atliq City Bangalore" />
+        <div class="card-content">
+          <h2>Atliq City – Bangalore</h2>
+          <p>Indiranagar, Bangalore, Karnataka 560038</p>
+        </div>
+        <a href="booking.html?hotel=Atliq+City+Bangalore" class="book-button"><i class="fas fa-bed"></i> Book Your Hotel</a>
+        <iframe src="https://www.google.com/maps?q=Indiranagar+Bangalore&output=embed"></iframe>
       </div>
-      <iframe src="https://www.google.com/maps?q=Marine+Drive+Mumbai&output=embed"></iframe>
+      <div class="card">
+        <img src="https://content3.jdmagicbox.com/v2/comp/mumbai/k1/022pxx22.xx22.210706090356.d8k1/catalogue/radisson-blu-mumbai-international-airport-andheri-east-mumbai-hotels-0e9cfdvya2.jpg" alt="Atliq Blu Mumbai" />
+        <div class="card-content">
+          <h2>Atliq Blu – Mumbai</h2>
+          <p>Marine Drive, Mumbai, Maharashtra 400002</p>
+        </div>
+        <a href="booking.html?hotel=Atliq+Blu+Mumbai" class="book-button"><i class="fas fa-bed"></i> Book Your Hotel</a>
+        <iframe src="https://www.google.com/maps?q=Marine+Drive+Mumbai&output=embed"></iframe>
+      </div>
+    </div>
+    <footer>
+      <p>© 2025 Atliq Hospitality Services. All rights reserved.</p>
+      <p>Follow us on:
+        <a href="https://twitter.com" target="_blank">Twitter <i class="fab fa-twitter"></i></a> |
+        <a href="https://facebook.com" target="_blank">Facebook <i class="fab fa-facebook"></i></a> |
+        <a href="https://linkedin.com" target="_blank">LinkedIn <i class="fab fa-linkedin"></i></a>
+      </p>
+    </footer>
+  </div>
+
+  <div id="chatbot-button" onclick="toggleChatbot()">
+    <i class="fas fa-comments"></i>
+  </div>
+  <div id="chatbot-modal" style="display:none; position:fixed; bottom:90px; right:25px; width:300px; background:white; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:999;">
+    <div class="chat-header">
+      <span>Travel Assistant</span> <span onclick="toggleChatbot()" style="cursor:pointer;">❌</span>
+    </div>
+    <div id="chatbox" style="padding:10px; max-height:250px; overflow-y:auto;"></div>
+    <div style="padding:10px; display:flex;">
+      <input type="text" id="userInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendMessage()" />
+      <button onclick="sendMessage()">Send</button>
     </div>
   </div>
+
   <script>
     function searchCards(query) {
       const cards = document.querySelectorAll(".card");
@@ -168,23 +504,23 @@
         card.style.display = text.includes(query.toLowerCase()) ? "block" : "none";
       });
     }
+
+    function toggleChatbot() {
+      const modal = document.getElementById("chatbot-modal");
+      modal.style.display = modal.style.display === "none" ? "block" : "none";
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const chatbox = document.getElementById("chatbox");
+      const message = input.value.trim();
+      if (message) {
+        chatbox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+        chatbox.innerHTML += `<p><strong>Bot:</strong> Thanks for your query! For more details, please contact our support team.</p>`;
+        input.value = "";
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }
+    }
   </script>
-  <!-- Floating Chat Button -->
-<div id="chatbot-button" onclick="toggleChatbot()">
-  💬
-</div>
-<!-- Chat Modal -->
-<div id="chatbot-modal" style="display:none; position:fixed; bottom:90px; right:25px; width:300px; background:white; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:999;">
-  <div style="background:#002147; color:white; padding:10px; border-top-left-radius:10px; border-top-right-radius:10px;">
-    Travel Assistant <span onclick="toggleChatbot()" style="float:right; cursor:pointer;">❌</span>
-  </div>
-  <div id="chatbox" style="padding:10px; max-height:250px; overflow-y:auto;"></div>
-  <div style="padding:10px; display:flex;">
-    <input type="text" id="userInput" placeholder="Ask a question..." style="flex:1; padding:5px;" onkeydown="if(event.key==='Enter')sendMessage()" />
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
-
-
 </body>
 </html>

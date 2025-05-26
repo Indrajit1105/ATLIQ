@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - Atliq Hospitality Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/708f3e7c32.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Sidebar Section -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="assets/atliq.jpg" alt="Atliq Hospitality Logo">
+            <h6>Atliq Hospitality Services</h6>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="reviews.html">Customer Reviews</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <main>
+            <!-- Review Submission Section -->
+            <section id="submit-review" class="submit-review">
+                <h2>Share Your Experience</h2>
+                <p>We value your feedback! Please share your review below.</p>
+                <div class="review-form">
+                    <input type="text" id="reviewer-name" placeholder="Your Name" required>
+                    <textarea id="review-text" placeholder="Write your review..." required></textarea>
+                    <div class="rating">
+                        <label>Rating:</label>
+                        <select id="review-rating" required>
+                            <option value="" disabled selected>Select rating</option>
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+                    <button onclick="submitReview()">Submit Review</button>
+                    <div id="review-response"></div>
+                </div>
+            </section>
+
+            <!-- Recent Reviews Section -->
+            <section id="recent-reviews" class="recent-reviews">
+                <h2>Recent Reviews</h2>
+                <div id="reviews-container" class="reviews-container"></div>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>© 2024 Atliq Hospitality Services. All rights reserved.</p>
+            <p>Follow us on: 
+                <a href="https://twitter.com" target="_blank">Twitter</a> | 
+                <a href="https://facebook.com" target="_blank">Facebook</a> | 
+                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Fetch and display recent reviews on page load
+        async function fetchReviews() {
+            try {
+                const response = await fetch("http://127.0.0.1:8000/reviews/", {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                const reviewsContainer = document.getElementById("reviews-container");
+                reviewsContainer.innerHTML = "";
+                data.reviews.forEach(review => {
+                    const reviewElement = document.createElement("div");
+                    reviewElement.classList.add("review-item");
+                    reviewElement.innerHTML = `
+                        <h3>${review.name}</h3>
+                        <div class="review-rating">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</div>
+                        <p>${review.review}</p>
+                        <p class="review-date">${new Date(review.created_at).toLocaleDateString()}</p>
+                    `;
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+                document.getElementById("reviews-container").innerHTML = "<p>Unable to load reviews.</p>";
+            }
+        }
+
+        // Submit a new review
+        async function submitReview() {
+            const name = document.getElementById("reviewer-name").value;
+            const reviewText = document.getElementById("review-text").value;
+            const rating = document.getElementById("review-rating").value;
+            const responseDiv = document.getElementById("review-response");
+
+            if (!name || !reviewText || !rating) {
+                responseDiv.innerHTML = "<p style='color: red;'>Please fill out all fields.</p>";
+                return;
+            }
+
+            responseDiv.innerHTML = "<p>Submitting your review...</p>";
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/reviews/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, review: reviewText, rating: parseInt(rating) })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                responseDiv.innerHTML = "<p style='color: green;'>Review submitted successfully!</p>";
+                document.getElementById("reviewer-name").value = "";
+                document.getElementById("review-text").value = "";
+                document.getElementById("review-rating").value = "";
+                fetchReviews(); // Refresh reviews
+            } catch (error) {
+                console.error("Error submitting review:", error);
+                responseDiv.innerHTML = "<p style='color: red;'>Unable to submit review.</p>";
+            }
+        }
+
+        // Load reviews when the page loads
+        window.onload = fetchReviews;
+    </script>
+</body>
+</html>

@@ -8,7 +8,7 @@
 
 /* Body Styling */
 body {
-    background: linear-gradient(135deg, #f4f4f4, #e0e7ff); /* Subtle gradient background */
+    background: linear-gradient(135deg, #f4f4f4, #e0e7ff);
 }
 
 /* Sidebar Styles */
@@ -18,7 +18,7 @@ body {
     left: 0;
     width: 260px;
     height: 100%;
-    background: linear-gradient(180deg, #002147, #004080); /* Gradient for sidebar */
+    background: linear-gradient(180deg, #002147, #004080);
     color: white;
     padding: 20px;
     display: flex;
@@ -59,28 +59,67 @@ body {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px; /* Reduced gap for a tighter, professional look */
+    padding: 0;
 }
 
 .sidebar nav ul li {
     position: relative;
-    top: 0; /* Removed top positioning to align naturally */
+    overflow: hidden; /* For gradient hover effect */
 }
 
 .sidebar nav ul li a {
     text-decoration: none;
     color: white;
     font-size: 1.1rem;
-    font-weight: 500;
-    padding: 10px 15px;
-    border-radius: 8px;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    font-weight: 600; /* Bolder for professionalism */
+    padding: 12px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Space between icon and text */
+    background: linear-gradient(90deg, transparent 50%, rgba(167, 255, 235, 0.2) 50%);
+    background-size: 200% 100%;
+    background-position: 0% 0;
+    transition: background-position 0.4s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar nav ul li a i {
+    font-size: 1.3rem; /* Slightly larger icons */
+    color: #a7ffeb; /* Match brand accent color */
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .sidebar nav ul li a:hover {
-    background-color: #a7ffeb;
+    background-position: -100% 0; /* Slide gradient on hover */
     color: #002147;
-    transform: translateX(5px);
+    transform: translateX(8px); /* More pronounced movement */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar nav ul li a:hover i {
+    color: #002147; /* Icon changes color on hover */
+    transform: scale(1.1); /* Slight icon scale on hover */
+}
+
+/* Active State for Current Page */
+.sidebar nav ul li a.active {
+    background: #a7ffeb; /* Solid accent color for active state */
+    color: #002147;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateX(5px); /* Slight offset to mimic hover */
+}
+
+.sidebar nav ul li a.active i {
+    color: #002147; /* Ensure icon matches text color */
+}
+
+/* Focus State for Accessibility */
+.sidebar nav ul li a:focus {
+    outline: 2px solid #a7ffeb;
+    outline-offset: 2px;
+    background-position: -100% 0;
 }
 
 /* Main Content Styles */
@@ -181,7 +220,7 @@ h2::after {
 
 .availability {
     font-size: 0.85rem;
-    color: #a7ffeb;
+    color: #002147;
     background: #a7ffeb;
     padding: 5px 10px;
     border-radius: 5px;
@@ -199,7 +238,13 @@ h2::after {
 
 /* Success Stories Section */
 .success {
-    background: linear-gradient(135deg, #f9f9f9, #e0e7ff);
+    background: linear-gradient(135deg, #f9f4f9, #e0f7ff);
+}
+
+.success-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 .success-item {
@@ -384,6 +429,189 @@ button:hover {
     line-height: 1.6;
 }
 
+/* Review Submission Section (for reviews.html) */
+.submit-review {
+    background: #fff;
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.submit-review:hover {
+    transform: translateY(-5px);
+}
+
+.submit-review h2 {
+    color: #002147;
+    font-size: 2rem;
+}
+
+.submit-review p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select {
+    padding: 12px;
+    border: 2px solid #e0e7ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #f9f9f9;
+}
+
+.review-form input:focus,
+.review-form textarea:focus,
+.review-form select:focus {
+    border-color: #a7ffeb;
+    box-shadow: 0 0 8px rgba(167, 255, 235, 0.3);
+    outline: none;
+}
+
+.review-form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.review-form .rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-form .rating label {
+    font-size: 1rem;
+    color: #002147;
+    font-weight: 500;
+}
+
+.review-form select {
+    width: 140px;
+}
+
+.review-form button {
+    background: linear-gradient(135deg, #002147, #004080);
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.review-form button:hover {
+    background: linear-gradient(135deg, #004080, #0064b7);
+    transform: scale(1.05);
+}
+
+#review-response {
+    font-size: 0.95rem;
+    margin-top: 10px;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+/* Recent Reviews Section (for reviews.html) */
+.recent-reviews {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #f9f9f9, #e0e7ff);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.recent-reviews h2 {
+    color: #002147;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller tiles, 4-5 per row */
+    gap: 10px; /* Reduced gap for tighter layout */
+}
+
+.review-item {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 12px; /* Further reduced padding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e7ff; /* Subtle border for definition */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 150px; /* Smaller height */
+}
+
+.review-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(135deg, #ffffff, #f0faff); /* Subtle gradient on hover */
+}
+
+.review-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: #a7ffeb;
+    transition: width 0.3s ease;
+}
+
+.review-item:hover::before {
+    width: 6px;
+}
+
+.review-item h3 {
+    font-size: 0.95rem; /* Smaller font */
+    color: #002147;
+    font-weight: 600;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.review-rating {
+    font-size: 0.9rem; /* Smaller stars */
+    color: #f1c40f;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+.review-item p {
+    font-size: 0.8rem; /* Smaller text */
+    color: #666; /* Slightly lighter for contrast */
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.review-date {
+    font-size: 0.7rem; /* Smaller date */
+    color: #999;
+    margin-top: 6px;
+    text-align: right;
+    font-style: italic;
+}
+
 /* Footer */
 footer {
     background: linear-gradient(135deg, #002147, #004080);
@@ -413,6 +641,19 @@ footer a:hover {
         box-shadow: none;
     }
 
+    .sidebar nav ul {
+        gap: 10px; /* Tighter spacing on mobile */
+    }
+
+    .sidebar nav ul li a {
+        font-size: 1rem; /* Slightly smaller font on mobile */
+        padding: 10px 15px;
+    }
+
+    .sidebar nav ul li a i {
+        font-size: 1.2rem; /* Adjust icon size for mobile */
+    }
+
     .main-content {
         margin-left: 0;
         border-radius: 0;
@@ -429,5 +670,26 @@ footer a:hover {
 
     .chatbot-modal.show {
         right: 0;
+    }
+
+    .submit-review {
+        padding: 20px;
+    }
+
+    .recent-reviews {
+        padding: 20px;
+    }
+
+    .reviews-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Smaller tiles on mobile */
+    }
+
+    .review-form .rating {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .review-form select {
+        width: 100%;
     }
 }
